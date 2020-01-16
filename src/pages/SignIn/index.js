@@ -1,22 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Image } from 'react-native';
-// import { useDispatch, useSelector } from 'react-redux';
+
+import { useDispatch } from 'react-redux';
 
 import logo from '~/assets/8-layers.png';
 import Background from '~/components/Background/BackgroundSignIn';
 
+import { signInRequest } from '~/store/modules/student/actions';
+
 import { Container, Form, FormInput, SubmitButton } from './styles';
 
 export default function SignIn() {
-  // const [id, setId] = useState('');
+  const dispatch = useDispatch();
 
-  // const dispatch = useDispatch();
+  const [studentId, setStudentId] = useState('');
 
   // const loading = useSelector(state => state.student.loading);
 
-  // const handleSubmit = () => {
-  //   // dispatch(signInRequest(id));
-  // }
+  const handleSubmit = () => {
+    dispatch(signInRequest(studentId));
+  }
 
 
   return (
@@ -28,12 +31,12 @@ export default function SignIn() {
             autoCorrect={false}
             keyboardType="numeric"
             placeholder="Your student ID"
-            // returnKeyType="send"
-            // onSubmitEditing={handleSubmit}
-            // value={id}
-            // onChangeText={setId}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={studentId}
+            onChangeText={setStudentId}
             />
-            <SubmitButton onPress={() => {}}>
+            <SubmitButton onPress={handleSubmit}>
               Sign In
             </SubmitButton>
         </Form>

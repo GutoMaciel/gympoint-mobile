@@ -1,56 +1,77 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import api from '~/services/api';
+import { Alert } from 'react-native';
 
-import {
-  Text, Image, StyleSheet, Dimensions, ImageBackground, StatusBar,
-} from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  fileName: {
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  instructions: {
-    color: '#DDD',
-    fontSize: 14,
-    marginTop: 20,
-    textAlign: 'center',
-  },
-  logo: {
-    height: Dimensions.get('window').height * 0.11,
-    marginVertical: Dimensions.get('window').height * 0.11,
-    width: Dimensions.get('window').height * 0.11 * (1950 / 662),
-  },
-  welcome: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+import { useSelector } from 'react-redux';
 
-const Main = () => (
-  <ImageBackground
-    source={{
-      uri: 'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/background.png',
-    }}
-    style={styles.container}
-    resizeMode="cover"
-  >
-    <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
-    <Image
-      source={{
-        uri: 'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-      }}
-      style={styles.logo}
-      resizeMode="contain"
-    />
-    <Text style={styles.welcome}>Hello, Worlds</Text>
-  </ImageBackground>
-);
+import Background from '~/components/Background';
+import Header from '~/components/Header';
+import Checkin from '~/components/Checkin';
 
-export default Main;
+import { Container, List, CheckinButton } from './styles';
+import { withNavigationFocus } from 'react-navigation';
+
+// const data = [1, 2, 3, 4, 5, 6, 7, 8];
+
+function Main({ isFocused }) {
+  const studentId = useSelector(state => state.student.id);
+  const [checkins, setCheckins] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  async function getCheckins() {
+    try {
+      const response = await api.get(`/students/${studentId}/checkins`);
+
+      setCheckins(response.data);
+    } catch (err) {
+      alert.alert('Error.', `${err.response.data.error}`);
+    }
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      getCheckins();
+    }
+  }, [isFocused]);
+
+  async function handleNewCheckin() {
+    try {
+      setLoading(true);
+      await api.post(`students/${studentId}/checkins`);
+      Alert.alert('Done', 'Successfull checkin!');
+    } catch (err) {
+      Alert.alert('Error', `${err.response.data.error}`);
+    } finally {
+      getCheckins();
+      setLoading(false);
+    }
+  }
+
+
+  return (
+  <Background>
+    <Header />
+    <Container>
+      <CheckinButton onPress={handleNewCheckin}>
+        New check-in
+      </CheckinButton>
+      <List
+        data={checkins}
+        keyExtractor={item => String(item.id)}
+        renderItem={({ item, index }) => {
+          return (
+            <Checkin data={item} index={index} totalRows={checkins.length} />
+          );
+        }}
+      />
+    </Container>
+  </Background>
+  );
+}
+
+export default withNavigationFocus(Main);
+
+Main.navigationOptions = {
+  tabBarLabel: 'Checkins',
+};
