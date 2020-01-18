@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { formatRelative, parseISO } from 'date-fns';
+import React from 'react';
 
 import Background from '~/components/Background';
 
@@ -8,11 +7,6 @@ import { Container, Card, AnswerHeader, QuestionTitle, QuestionDate, AnswerTitle
 export default function Show({ navigation }) {
   const helpOrder = navigation.getParam('item');
 
-  // const formattedDate = useMemo(
-  //     () =>
-  //       formatRelative(parseISO(helpOrder.createdAt), new Date()),
-  //     [helpOrder]
-  //   );
 
   return (
     <Background>

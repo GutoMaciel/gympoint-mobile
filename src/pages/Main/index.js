@@ -38,14 +38,14 @@ function Main({ isFocused }) {
 
   async function handleNewCheckin() {
     try {
-      setLoading(true);
+      // setLoading(true);
       await api.post(`students/${studentId}/checkins`);
       Alert.alert('Done', 'Successfull checkin!');
     } catch (err) {
-      Alert.alert('Error', `${err.response.data.error}`);
+      Alert.alert('Sorry', `${err.response.data.error}`);
     } finally {
       getCheckins();
-      setLoading(false);
+      // setLoading(false);
     }
   }
 
