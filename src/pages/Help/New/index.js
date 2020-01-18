@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector} from 'react-redux';
-import { Alert } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import api from '~/services/api';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container, TextInput, SubmitButton } from './styles';
 
@@ -37,3 +39,11 @@ export default function New({ navigation }) {
     </Container>
   );
 }
+
+New.navigationOptions = ({ navigation }) => ({
+  headerLeft: () => (
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Icon name="chevron-left" size={24} color="#333" />
+    </TouchableOpacity>
+  ),
+});

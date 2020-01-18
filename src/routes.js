@@ -2,6 +2,7 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Header from '~/components/Header';
 
@@ -22,17 +23,25 @@ export default (signedIn = false) =>
                 List,
                 New,
                 Show,
-              },{
-                defaultNavigationOptions: {
-                  header: <Header />,
-                  headerStyle: {
-                    marginTop: 30,
-                  }
-                },
-              }),
+              },
+                {
+                  defaultNavigationOptions: {
+                   header: <Header />,
+                  },
+                }
+              ),
               navigationOptions: {
-                tabBarLabel: 'Help'
-              }
+                tabBarLabel: 'Help',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="live-help" size={20} color={tintColor} />
+                ),
+              },
+              defaultNavigationOptions: {
+                headerBackground: <Header />,
+                headerBackImage: () => (
+                  <Icon name="chevron-left" size={22} color="#333" />
+                ),
+              },
             },
          },
       {

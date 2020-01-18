@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react';
-import api from '~/services/api';
 
 import { formatRelative, parseISO } from 'date-fns';
 
@@ -13,9 +12,9 @@ export default function Checkin({checkin, index, totalRows}) {
   // }))
 
 
-  // const dateFormatted = useMemo(() => {
-  //   return formatRelative(parseISO(checkin.createdAt), new Date());
-  // }, [checkin.createdAt]);
+  const dateFormatted = useMemo(() => {
+    return formatRelative(parseISO(checkin.createdAt), new Date());
+  }, [checkin.createdAt]);
 
   const checkinNumber = useMemo(() => {
     return totalRows - index;
@@ -24,7 +23,7 @@ export default function Checkin({checkin, index, totalRows}) {
   return (
     <Container>
       <CheckinNumber>{`Check-in #${checkinNumber}`} </CheckinNumber>
-      <CheckinDate>static</CheckinDate>
+      <CheckinDate>{dateFormatted}</CheckinDate>
     </Container>
   );
 }

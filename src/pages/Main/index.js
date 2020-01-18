@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import api from '~/services/api';
 import { Alert } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { useSelector } from 'react-redux';
 
@@ -17,7 +18,7 @@ import { withNavigationFocus } from 'react-navigation';
 function Main({ isFocused }) {
   const studentId = useSelector(state => state.student.id);
   const [checkins, setCheckins] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   async function getCheckins() {
     try {
@@ -50,28 +51,37 @@ function Main({ isFocused }) {
 
 
   return (
-  <Background>
-    <Header />
-    <Container>
-      <CheckinButton onPress={handleNewCheckin}>
-        New check-in
-      </CheckinButton>
-      <List
-        data={checkins}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item, index }) => {
-          return (
-            <Checkin data={item} index={index} totalRows={checkins.length} />
-          );
-        }}
-      />
-    </Container>
-  </Background>
+    <>
+      <Background>
+        <Header />
+        <Container>
+          <CheckinButton onPress={handleNewCheckin}>
+            New check-in
+          </CheckinButton>
+          <List
+            data={checkins}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item, index }) => {
+              return (
+                <Checkin
+                  checkin={item}
+                  index={index}
+                  totalRows={checkins.length} />
+              );
+            }}
+          />
+        </Container>
+      </Background>
+  </>
   );
 }
 
-export default withNavigationFocus(Main);
 
 Main.navigationOptions = {
   tabBarLabel: 'Checkins',
-};
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="edit-location" size={22} color={tintColor} />
+    ),
+  };
+
+  export default withNavigationFocus(Main);

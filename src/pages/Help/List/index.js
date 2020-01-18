@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import {useSelector} from 'react-redux';
 import { withNavigationFocus} from 'react-navigation';
 import api from '~/services/api';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container, NewQuestionButton, RequestList, Request, RequestInfo, Text, RequestHeader, RequestHeaderContent, RequestDate, Question } from './styles';
 import { formatRelative } from 'date-fns';
@@ -63,10 +64,12 @@ function List({ navigation, isFocused}) {
               <RequestHeaderContent>
                 {item.answer ? (
                   <RequestInfo>
+                    <Icon name="check-circle" size={15} color="#42cb59" />
                     <Text answer>Answered</Text>
                   </RequestInfo>
                 ) : (
                   <RequestInfo>
+                    <Icon name="check-circle" size={15} color="#999" />
                     <Text>Unanswered</Text>
                   </RequestInfo>
                 )}

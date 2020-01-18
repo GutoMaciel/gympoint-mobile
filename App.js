@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  YellowBox
 } from 'react-native';
 
 import {
@@ -23,6 +24,10 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+YellowBox.ignoreWarnings([
+  "Deprecation in 'navigationOptions'"
+]);
 
 const App: () => React$Node = () => {
   return (
