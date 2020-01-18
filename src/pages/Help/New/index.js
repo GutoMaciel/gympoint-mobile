@@ -39,11 +39,3 @@ export default function New({ navigation }) {
     </Container>
   );
 }
-
-New.navigationOptions = ({ navigation }) => ({
-  headerLeft: () => (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Icon name="chevron-left" size={24} color="#333" />
-    </TouchableOpacity>
-  ),
-});

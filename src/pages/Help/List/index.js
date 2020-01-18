@@ -22,18 +22,6 @@ function List({ navigation, isFocused}) {
         createdAt: formatRelative(parseISO(request.createdAt), new Date())
       }));
 
-
-
-
-      // const response = await api.get(`/student/help-orders/${studentId}`);
-      // const data = response.data.map(request => ({
-      //   ...request,
-      //   created_at: formatRelative(parseISO(request.createdAt), new Date()),
-      // }));
-
-
-
-
       setHelpOrders(data);
     } catch (err) {
       Alert.alert('Error', `${err.response.data.error}`);
@@ -50,8 +38,8 @@ function List({ navigation, isFocused}) {
     navigation.navigate('Show', { item });
   }
 
-
   return (
+    <>
     <Container>
       <NewQuestionButton onPress={() => navigation.navigate('New')}>Request Help</NewQuestionButton>
 
@@ -82,6 +70,7 @@ function List({ navigation, isFocused}) {
         )}
       />
     </Container>
+    </>
   );
 }
 

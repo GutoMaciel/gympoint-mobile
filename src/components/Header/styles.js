@@ -14,7 +14,7 @@ export const Container = styled.SafeAreaView`
 
 export const LogoTitle = styled.Text`
   color: #ee4e62;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   margin-left: 10px;
 `;

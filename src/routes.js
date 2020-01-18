@@ -26,25 +26,25 @@ export default (signedIn = false) =>
               },
                 {
                   defaultNavigationOptions: {
-                   header: <Header />,
+                    headerTitle: false,
+                    headerBackground: <Header />,
+                    headerBackTitleVisible: false,
+                    headerBackImage: () => (
+                      <Icon name="chevron-left" size={33} color="#333" />
+                    )
                   },
                 }
               ),
               navigationOptions: {
                 tabBarLabel: 'Help',
                 tabBarIcon: ({ tintColor }) => (
-                  <Icon name="live-help" size={20} color={tintColor} />
-                ),
-              },
-              defaultNavigationOptions: {
-                headerBackground: <Header />,
-                headerBackImage: () => (
-                  <Icon name="chevron-left" size={22} color="#333" />
+                  <Icon name="live-help" size={22} color={tintColor} />
                 ),
               },
             },
          },
       {
+        resetOnBlur: true,
         tabBarOptions: {
           keyboardHidesTabBar: true,
           activeTintColor: '#EE4E62',
